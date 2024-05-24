@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
     public Slider sfxVolumeSlider;
     public Slider musicVolumeSlider;
     public Button saveGameButton;
+    public Button loadGameButton;
     public Button exitGameButton;
 
     public AudioMixer audioMixer;
@@ -24,6 +25,7 @@ public class UIManager : Singleton<UIManager>
         sfxVolumeSlider.onValueChanged.AddListener(UpdateSFXVolume);
         musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
         saveGameButton.onClick.AddListener(GameManager.Instance.SaveGame);
+        loadGameButton.onClick.AddListener(GameManager.Instance.LoadGame);
         exitGameButton.onClick.AddListener(GameManager.Instance.QuitGame);
         GameManager.onGameSaved += SaveGame;
         GameManager.onGameLoaded += LoadGame;
@@ -39,6 +41,7 @@ public class UIManager : Singleton<UIManager>
         sfxVolumeSlider.onValueChanged.RemoveListener(UpdateSFXVolume);
         musicVolumeSlider.onValueChanged.RemoveListener(UpdateMusicVolume);
         saveGameButton.onClick.RemoveListener(GameManager.Instance.SaveGame);
+        loadGameButton.onClick.RemoveListener(GameManager.Instance.LoadGame);
         exitGameButton.onClick.RemoveListener(GameManager.Instance.QuitGame);
         GameManager.onGameSaved -= SaveGame;
         GameManager.onGameLoaded -= LoadGame;
@@ -50,7 +53,7 @@ public class UIManager : Singleton<UIManager>
         PlayerPrefs.SetInt("SFXVolume", audioMixer.GetFloat("SFXVolume", out float sfxVolume) ? (int)sfxVolume : 0);
     }
 
-    private void LoadGame()
+    private void LoadGame(uint seed)
     {
         audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetInt("MusicVolume"));
         audioMixer.SetFloat("SFXVolume", PlayerPrefs.GetInt("SFXVolume"));

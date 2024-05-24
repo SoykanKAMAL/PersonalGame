@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     public static Action onCardsMatched;
     public static Action onCardsMismatched;
     public static Action onGameSaved;
-    public static Action onGameLoaded;
+    public static Action<uint> onGameLoaded;
 
     private void Start()
     {
@@ -25,16 +25,12 @@ public class GameManager : Singleton<GameManager>
     private void OnEnable()
     {
         Card.onCardClicked += OnCardSelected;
-        onGameSaved += SaveGame;
-        onGameLoaded += LoadGame;
         onCardsMatched += CheckGameEnd;
     }
 
     private void OnDisable()
     {
         Card.onCardClicked -= OnCardSelected;
-        onGameSaved -= SaveGame;
-        onGameLoaded -= LoadGame;
         onCardsMatched -= CheckGameEnd;
     }
 
@@ -47,7 +43,7 @@ public class GameManager : Singleton<GameManager>
     [ContextMenu("Load Game Test")]
     private void LoadGameTest()
     {
-        onGameLoaded?.Invoke();
+        onGameLoaded?.Invoke(seed);
     }
 
     public void SaveGame()
@@ -80,7 +76,7 @@ public class GameManager : Singleton<GameManager>
             matchedCardIds.Add(uint.Parse(matchedCardIdsArray[i]));
         }
         
-        onGameLoaded?.Invoke();
+        onGameLoaded?.Invoke(seed);
     }
 
     public void QuitGame()

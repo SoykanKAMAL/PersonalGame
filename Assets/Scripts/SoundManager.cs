@@ -9,6 +9,7 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip cardMatchSound;
     public AudioClip cardMismatchSound;
     public AudioClip gameOverSound;
+    public AudioClip backgroundMusic;
 
     public AudioSource sfxAudioSource;
     public AudioSource musicAudioSource;
@@ -19,6 +20,8 @@ public class SoundManager : Singleton<SoundManager>
         GameManager.onCardsMatched += PlayMatchSound;
         GameManager.onCardsMismatched += PlayMismatchSound;
         GameManager.onGameEnd += PlayGameOverSound;
+
+        PlayBackgroundMusic();
     }
 
     private void OnDisable()
@@ -54,5 +57,12 @@ public class SoundManager : Singleton<SoundManager>
         // Randomize pitch to make the sound less repetitive
         sfxAudioSource.pitch = Random.Range(0.95f, 1.05f);
         sfxAudioSource.PlayOneShot(clip);
+    }
+
+    private void PlayBackgroundMusic()
+    {
+        musicAudioSource.clip = backgroundMusic;
+        musicAudioSource.loop = true;
+        musicAudioSource.Play();
     }
 }

@@ -36,7 +36,7 @@ public class ScoreManager : Singleton<ScoreManager>
         PlayerPrefs.SetInt("Combo", _combo);
     }
 
-    private void LoadGame()
+    private void LoadGame(uint seed)
     {
         _score = PlayerPrefs.GetInt("Score");
         _combo = PlayerPrefs.GetInt("Combo");

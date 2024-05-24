@@ -21,19 +21,16 @@ public class Deck : Singleton<Deck>
     
     private GridLayoutGroup gridLayoutGroup => cardsParent.GetComponent<GridLayoutGroup>();
 
-    private void Awake()
-    {
-        cardDataList = Resources.LoadAll<CardDataSO>("Cards").ToList();
-    }
-
     private void OnEnable()
     {
         GameManager.onGameStart += CreateDeck;
+        GameManager.onGameLoaded += CreateDeck;
     }
 
     private void OnDisable()
     {
         GameManager.onGameStart -= CreateDeck;
+        GameManager.onGameLoaded -= CreateDeck;
     }
 
     public void FlipCardsWithIds(List<uint> cardIds)
@@ -50,6 +47,8 @@ public class Deck : Singleton<Deck>
 
     public void CreateDeck(uint seed)
     {
+        cardDataList = Resources.LoadAll<CardDataSO>("Cards").ToList();
+
         foreach(Card card in cards)
         {
             Destroy(card.gameObject);
@@ -87,6 +86,8 @@ public class Deck : Singleton<Deck>
         }
 
         FlipCardsWithIds(GameManager.Instance.matchedCardIds);
+
+        Debug.Log("Deck created");
     }
 
     public void Reset()
