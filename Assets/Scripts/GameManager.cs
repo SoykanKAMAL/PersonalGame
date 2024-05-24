@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    private uint seed;
+    private uint _seed;
     public float delayBeforeFlipBack = 1f;
     public List<Card> selectedCards = new List<Card>();
     public List<uint> matchedCardIds = new List<uint>();
@@ -43,12 +43,12 @@ public class GameManager : Singleton<GameManager>
     [ContextMenu("Load Game Test")]
     private void LoadGameTest()
     {
-        onGameLoaded?.Invoke(seed);
+        onGameLoaded?.Invoke(_seed);
     }
 
     public void SaveGame()
     {
-        PlayerPrefs.SetString("Seed", seed.ToString());
+        PlayerPrefs.SetString("_seed", _seed.ToString());
         // Convert matchedCardIds to string to save in PlayerPrefs
         var matchedCardIdsString = "";
         for (int i = 0; i < matchedCardIds.Count; i++)
@@ -66,7 +66,7 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadGame()
     {
-        seed = uint.Parse(PlayerPrefs.GetString("Seed"));
+        _seed = uint.Parse(PlayerPrefs.GetString("_seed"));
         // Convert matchedCardIds from string to List<uint>
         var matchedCardIdsString = PlayerPrefs.GetString("MatchedCardIds");
         var matchedCardIdsArray = matchedCardIdsString.Split(',');
@@ -76,7 +76,7 @@ public class GameManager : Singleton<GameManager>
             matchedCardIds.Add(uint.Parse(matchedCardIdsArray[i]));
         }
         
-        onGameLoaded?.Invoke(seed);
+        onGameLoaded?.Invoke(_seed);
     }
 
     public void QuitGame()
@@ -86,10 +86,10 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
-        // Randomize seed to shuffle cards
-        seed = (uint)UnityEngine.Random.Range(0, int.MaxValue);
+        // Randomize _seed to shuffle cards
+        _seed = (uint)UnityEngine.Random.Range(0, int.MaxValue);
         matchedCardIds.Clear();
-        onGameStart?.Invoke(seed);
+        onGameStart?.Invoke(_seed);
     }
 
     private void CheckGameEnd()
