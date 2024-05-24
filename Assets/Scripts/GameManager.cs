@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public Deck deck;
     public uint seed;
     public float delayBeforeFlipBack = 1f;
     public List<Card> selectedCards = new List<Card>();
     public List<uint> matchedCardIds = new List<uint>();
 
+    public static Action<uint> onGameStart;
+    public static Action onGameEnd;
     public static Action onCardsMatched;
     public static Action onCardsMismatched;
 
@@ -22,16 +23,26 @@ public class GameManager : Singleton<GameManager>
     private void OnEnable()
     {
         Card.onCardClicked += OnCardSelected;
+        onCardsMatched += CheckGameEnd;
     }
 
     private void OnDisable()
     {
         Card.onCardClicked -= OnCardSelected;
+        onCardsMatched -= CheckGameEnd;
     }
 
     private void StartGame()
     {
-        deck.CreateDeck(seed);
+        onGameStart?.Invoke(seed);
+    }
+
+    private void CheckGameEnd()
+    {
+        if (matchedCardIds.Count >= Deck.Instance.rowCount * Deck.Instance.columnCount * .5f)
+        {
+            onGameEnd?.Invoke();
+        }
     }
 
     private void OnCardSelected(Card card)
@@ -53,6 +64,8 @@ public class GameManager : Singleton<GameManager>
         {
             card1.SetMatched(true);
             card2.SetMatched(true);
+
+            matchedCardIds.Add(card1.cardData.id);
 
             onCardsMatched?.Invoke();
         }

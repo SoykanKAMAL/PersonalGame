@@ -304,7 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef8706a394ff324d91cd60344434e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deck: {fileID: 2016195821}
   seed: 0
   delayBeforeFlipBack: 1
   selectedCards: []
@@ -523,7 +522,7 @@ MonoBehaviour:
   cardFlipSound: {fileID: 8300000, guid: 46e265883d5d2234eaf13505dc183c24, type: 3}
   cardMatchSound: {fileID: 8300000, guid: 99dd36473fe808545aad5417d7ba0b29, type: 3}
   cardMismatchSound: {fileID: 8300000, guid: 8b86e3e48da43bb42a93523f341939d5, type: 3}
-  gameOverSound: {fileID: 0}
+  gameOverSound: {fileID: 8300000, guid: 641fdc1ed14641947aa511e40866b69f, type: 3}
 --- !u!4 &908179545
 Transform:
   m_ObjectHideFlags: 0

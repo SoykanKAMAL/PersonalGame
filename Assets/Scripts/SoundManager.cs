@@ -16,6 +16,7 @@ public class SoundManager : Singleton<SoundManager>
         Card.onCardFlipped += PlayFlipSound;
         GameManager.onCardsMatched += PlayMatchSound;
         GameManager.onCardsMismatched += PlayMismatchSound;
+        GameManager.onGameEnd += PlayGameOverSound;
     }
 
     private void OnDisable()
@@ -23,6 +24,7 @@ public class SoundManager : Singleton<SoundManager>
         Card.onCardFlipped -= PlayFlipSound;
         GameManager.onCardsMatched -= PlayMatchSound;
         GameManager.onCardsMismatched -= PlayMismatchSound;
+        GameManager.onGameEnd -= PlayGameOverSound;
     }
 
     private void PlayFlipSound()
@@ -40,10 +42,15 @@ public class SoundManager : Singleton<SoundManager>
         PlaySound(cardMismatchSound);
     }
 
+    private void PlayGameOverSound()
+    {
+        PlaySound(gameOverSound);
+    }
+
     private void PlaySound(AudioClip clip)
     {
         // Randomize pitch to make the sound less repetitive
-        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.pitch = Random.Range(0.95f, 1.05f);
         audioSource.PlayOneShot(clip);
     }
 }

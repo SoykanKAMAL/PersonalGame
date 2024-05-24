@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Deck : MonoBehaviour
+public class Deck : Singleton<Deck>
 {
     public GameObject cardPrefab;
     public RectTransform cardsParent;
@@ -24,6 +24,16 @@ public class Deck : MonoBehaviour
     private void Awake()
     {
         cardDataList = Resources.LoadAll<CardDataSO>("Cards").ToList();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.onGameStart += CreateDeck;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onGameStart -= CreateDeck;
     }
 
     public void CreateDeck(uint seed)
