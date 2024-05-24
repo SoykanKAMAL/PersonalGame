@@ -32,7 +32,8 @@ public class Card : MonoBehaviour
     public void Flip()
     {
         isFlipped = !isFlipped;
-        UpdateCardView();
+        animatorComponent.SetTrigger("Flip");
+        //UpdateCardView();
     }
 
     public void UpdateCardView()
@@ -45,7 +46,6 @@ public class Card : MonoBehaviour
         if (!isFlipped && !isMatched)
         {
             Flip();
-            animatorComponent.SetTrigger("Flip");
             onCardFlipped?.Invoke(this);
         }
     }
@@ -58,6 +58,11 @@ public class Card : MonoBehaviour
     public void SetMatched(bool matched)
     {
         isMatched = matched;
+        if(matched) 
+        {
+            animatorComponent.SetTrigger("Match");
+            buttonComponent.interactable = false;
+        }
         UpdateCardView();
     }
 }
