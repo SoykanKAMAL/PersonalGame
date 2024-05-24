@@ -12,7 +12,7 @@ public class Card : MonoBehaviour
     public Button buttonComponent;
     public Animator animatorComponent;
 
-    public static Action<Card> onCardFlipped;
+    public static Action<Card> onCardClicked;
 
     private bool isFlipped = false;
     private bool isMatched = false;
@@ -36,7 +36,7 @@ public class Card : MonoBehaviour
         //UpdateCardView();
     }
 
-    public void UpdateCardView()
+    private void UpdateCardView()
     {
         imageComponent.sprite = isFlipped || isMatched ? cardData.image : backSideSprite;
     }
@@ -46,7 +46,7 @@ public class Card : MonoBehaviour
         if (!isFlipped && !isMatched)
         {
             Flip();
-            onCardFlipped?.Invoke(this);
+            onCardClicked?.Invoke(this);
         }
     }
 

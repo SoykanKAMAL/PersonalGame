@@ -21,12 +21,12 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
-        Card.onCardFlipped += OnCardSelected;
+        Card.onCardClicked += OnCardSelected;
     }
 
     private void OnDisable()
     {
-        Card.onCardFlipped -= OnCardSelected;
+        Card.onCardClicked -= OnCardSelected;
     }
 
     private void StartGame()

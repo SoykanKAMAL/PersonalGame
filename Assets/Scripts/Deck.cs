@@ -15,11 +15,16 @@ public class Deck : MonoBehaviour
     [Range(1, 10)]
     public int columnCount = 4;
 
-    public List<CardDataSO> cardDataList = new List<CardDataSO>();
+    private List<CardDataSO> cardDataList = new List<CardDataSO>();
 
     private List<Card> cards = new List<Card>();
     
     private GridLayoutGroup gridLayoutGroup => cardsParent.GetComponent<GridLayoutGroup>();
+
+    private void Awake()
+    {
+        cardDataList = Resources.LoadAll<CardDataSO>("Cards").ToList();
+    }
 
     public void CreateDeck(uint seed)
     {
