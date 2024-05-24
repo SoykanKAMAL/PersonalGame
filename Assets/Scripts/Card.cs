@@ -14,15 +14,26 @@ public class Card : MonoBehaviour
 
     public static Action<Card> onCardClicked;
     public static Action<Card> onCardMatched;
+    public static Action onCardHovered;
     public static Action onCardFlipped;
 
     private bool isFlipped = false;
     private bool isMatched = false;
 
-    private void Start()
+    public void OnCardHovered()
+    {
+        onCardHovered?.Invoke();
+    }
+
+    private void OnEnable()
     {
         UpdateCardView();
         buttonComponent.onClick.AddListener(OnCardClicked);
+    }
+
+    private void OnDisable()
+    {
+        buttonComponent.onClick.RemoveListener(OnCardClicked);
     }
 
     public void Initialize(CardDataSO data)

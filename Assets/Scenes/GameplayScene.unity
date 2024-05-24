@@ -1846,6 +1846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985c40456abca884484e5a898746d147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardHoverSound: {fileID: 8300000, guid: dd92d031f7f8f6b45ad01465dc1acfa2, type: 3}
   cardFlipSound: {fileID: 8300000, guid: 46e265883d5d2234eaf13505dc183c24, type: 3}
   cardMatchSound: {fileID: 8300000, guid: 99dd36473fe808545aad5417d7ba0b29, type: 3}
   cardMismatchSound: {fileID: 8300000, guid: 8b86e3e48da43bb42a93523f341939d5, type: 3}
@@ -3391,7 +3392,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
+  m_CellSize: {x: 360, y: 360}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -4527,8 +4528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 6468638894909425618, guid: a97ad84fdc6f3ec45ba88b9bba943aaf, type: 3}
   cardsParent: {fileID: 1466703768}
-  rowCount: 2
-  columnCount: 3
+  rowCount: 6
+  columnCount: 6
 --- !u!4 &2016195822
 Transform:
   m_ObjectHideFlags: 0

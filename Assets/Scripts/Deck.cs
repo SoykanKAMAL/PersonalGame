@@ -10,9 +10,9 @@ public class Deck : Singleton<Deck>
     public GameObject cardPrefab;
     public RectTransform cardsParent;
 
-    [Range(1, 10)]
+    [Range(1, 6)]
     public int rowCount = 4;
-    [Range(1, 10)]
+    [Range(1, 6)]
     public int columnCount = 4;
 
     private List<CardDataSO> cardDataList = new List<CardDataSO>();
@@ -56,8 +56,16 @@ public class Deck : Singleton<Deck>
 
         cards.Clear();
 
+        // Check if odd number of cards
+        if ((rowCount * columnCount) % 2 != 0)
+        {
+            Debug.LogWarning("Odd number of cards. Adding one more card to make it even.");
+            columnCount++;
+        }
+
         ReScaleDeck();
 
+        // Shuffle the card data list based on the seed
         Random.InitState((int)seed);
 
         List<CardDataSO> selectedCardDataList = new List<CardDataSO>();

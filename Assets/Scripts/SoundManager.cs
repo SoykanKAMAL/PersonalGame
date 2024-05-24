@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 
 public class SoundManager : Singleton<SoundManager>
 {
+    public AudioClip cardHoverSound;
     public AudioClip cardFlipSound;
     public AudioClip cardMatchSound;
     public AudioClip cardMismatchSound;
@@ -16,6 +17,7 @@ public class SoundManager : Singleton<SoundManager>
 
     private void OnEnable()
     {
+        Card.onCardHovered += PlayHoverSound;
         Card.onCardFlipped += PlayFlipSound;
         GameManager.onCardsMatched += PlayMatchSound;
         GameManager.onCardsMismatched += PlayMismatchSound;
@@ -26,10 +28,16 @@ public class SoundManager : Singleton<SoundManager>
 
     private void OnDisable()
     {
+        Card.onCardHovered -= PlayHoverSound;
         Card.onCardFlipped -= PlayFlipSound;
         GameManager.onCardsMatched -= PlayMatchSound;
         GameManager.onCardsMismatched -= PlayMismatchSound;
         GameManager.onGameEnd -= PlayGameOverSound;
+    }
+
+    private void PlayHoverSound()
+    {
+        PlaySfxSound(cardHoverSound);
     }
 
     private void PlayFlipSound()
