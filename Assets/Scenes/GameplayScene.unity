@@ -611,8 +611,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 6468638894909425618, guid: a97ad84fdc6f3ec45ba88b9bba943aaf, type: 3}
   cardsParent: {fileID: 1466703768}
-  rows: 4
-  columns: 4
+  rowCount: 2
+  columnCount: 2
   cardDataList:
   - {fileID: 11400000, guid: d2840cff74c08534dab79f4ec0ffa246, type: 2}
   - {fileID: 11400000, guid: 0fb06fbff47fb414da7d5548cb74f082, type: 2}
