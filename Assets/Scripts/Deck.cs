@@ -36,6 +36,18 @@ public class Deck : Singleton<Deck>
         GameManager.onGameStart -= CreateDeck;
     }
 
+    public void FlipCardsWithIds(List<uint> cardIds)
+    {
+        foreach (Card card in cards)
+        {
+            if (cardIds.Contains(card.cardData.id))
+            {
+                card.SetMatched(true);
+                card.FlipBack();
+            }
+        }
+    }
+
     public void CreateDeck(uint seed)
     {
         foreach(Card card in cards)
@@ -73,6 +85,8 @@ public class Deck : Singleton<Deck>
                 cards.Add(card);
             }
         }
+
+        FlipCardsWithIds(GameManager.Instance.matchedCardIds);
     }
 
     public void Reset()

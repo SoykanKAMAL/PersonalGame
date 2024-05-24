@@ -14,6 +14,8 @@ public class GameManager : Singleton<GameManager>
     public static Action onGameEnd;
     public static Action onCardsMatched;
     public static Action onCardsMismatched;
+    public static Action onGameSaved;
+    public static Action onGameLoaded;
 
     private void Start()
     {
@@ -23,17 +25,63 @@ public class GameManager : Singleton<GameManager>
     private void OnEnable()
     {
         Card.onCardClicked += OnCardSelected;
+        onGameSaved += SaveGame;
+        onGameLoaded += LoadGame;
         onCardsMatched += CheckGameEnd;
     }
 
     private void OnDisable()
     {
         Card.onCardClicked -= OnCardSelected;
+        onGameSaved -= SaveGame;
+        onGameLoaded -= LoadGame;
         onCardsMatched -= CheckGameEnd;
+    }
+
+    [ContextMenu("Save Game Test")]
+    private void SaveGameTest()
+    {
+        onGameSaved?.Invoke();
+    }
+
+    [ContextMenu("Load Game Test")]
+    private void LoadGameTest()
+    {
+        onGameLoaded?.Invoke();
+    }
+
+    private void SaveGame()
+    {
+        PlayerPrefs.SetString("Seed", seed.ToString());
+        // Convert matchedCardIds to string to save in PlayerPrefs
+        var matchedCardIdsString = "";
+        for (int i = 0; i < matchedCardIds.Count; i++)
+        {
+            matchedCardIdsString += matchedCardIds[i].ToString();
+            if (i < matchedCardIds.Count - 1)
+            {
+                matchedCardIdsString += ",";
+            }
+        }
+        PlayerPrefs.SetString("MatchedCardIds", matchedCardIdsString);
+    }
+
+    private void LoadGame()
+    {
+        seed = uint.Parse(PlayerPrefs.GetString("Seed"));
+        // Convert matchedCardIds from string to List<uint>
+        var matchedCardIdsString = PlayerPrefs.GetString("MatchedCardIds");
+        var matchedCardIdsArray = matchedCardIdsString.Split(',');
+        matchedCardIds.Clear();
+        for(int i = 0; i < matchedCardIdsArray.Length; i++)
+        {
+            matchedCardIds.Add(uint.Parse(matchedCardIdsArray[i]));
+        }
     }
 
     private void StartGame()
     {
+        onGameLoaded?.Invoke();
         onGameStart?.Invoke(seed);
     }
 

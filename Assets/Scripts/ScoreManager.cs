@@ -17,6 +17,31 @@ public class ScoreManager : Singleton<ScoreManager>
         GameManager.onCardsMatched += IncreaseScore;
         GameManager.onCardsMatched += IncreaseCombo;
         GameManager.onCardsMismatched += ResetCombo;
+        GameManager.onGameSaved += SaveGame;
+        GameManager.onGameLoaded += LoadGame;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onCardsMatched -= IncreaseScore;
+        GameManager.onCardsMatched -= IncreaseCombo;
+        GameManager.onCardsMismatched -= ResetCombo;
+        GameManager.onGameSaved -= SaveGame;
+        GameManager.onGameLoaded -= LoadGame;
+    }
+
+    private void SaveGame()
+    {
+        PlayerPrefs.SetInt("Score", _score);
+        PlayerPrefs.SetInt("Combo", _combo);
+    }
+
+    private void LoadGame()
+    {
+        _score = PlayerPrefs.GetInt("Score");
+        _combo = PlayerPrefs.GetInt("Combo");
+        onScoreUpdated?.Invoke(_score);
+        onComboUpdated?.Invoke(_combo);
     }
 
     private void IncreaseScore()
