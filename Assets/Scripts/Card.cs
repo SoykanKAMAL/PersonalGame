@@ -13,6 +13,7 @@ public class Card : MonoBehaviour
     public Animator animatorComponent;
 
     public static Action<Card> onCardClicked;
+    public static Action<Card> onCardMatched;
     public static Action onCardFlipped;
 
     private bool isFlipped = false;
@@ -74,6 +75,7 @@ public class Card : MonoBehaviour
         {
             animatorComponent.SetTrigger("Match");
             buttonComponent.interactable = false;
+            onCardMatched?.Invoke(this);
         }
         UpdateCardView();
     }
