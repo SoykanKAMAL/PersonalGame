@@ -55,7 +55,7 @@ public class Card : MonoBehaviour
         return cardData.id == otherCard.cardData.id;
     }
 
-    private void SetMatched(bool matched)
+    public void SetMatched(bool matched)
     {
         isMatched = matched;
         UpdateCardView();
