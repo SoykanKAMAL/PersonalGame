@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData: {fileID: 0}
-  backSideSprite: {fileID: 21300000, guid: 6106b2c4e70acba4f9fc80d996575250, type: 3}
+  backSideSprite: {fileID: 21300000, guid: 3cfbb6bebc3042941b3ac480231af159, type: 3}
   imageComponent: {fileID: 9016117704699731084}
   buttonComponent: {fileID: 6468638894909425623}
   animatorComponent: {fileID: 7943324599946101848}

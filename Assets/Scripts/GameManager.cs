@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public uint seed;
+    private uint seed;
     public float delayBeforeFlipBack = 1f;
     public List<Card> selectedCards = new List<Card>();
     public List<uint> matchedCardIds = new List<uint>();
@@ -84,8 +84,11 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
     }  
 
-    private void StartGame()
+    public void StartGame()
     {
+        // Randomize seed to shuffle cards
+        seed = (uint)UnityEngine.Random.Range(0, int.MaxValue);
+        matchedCardIds.Clear();
         onGameStart?.Invoke(seed);
     }
 

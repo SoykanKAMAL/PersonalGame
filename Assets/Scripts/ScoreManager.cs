@@ -17,6 +17,7 @@ public class ScoreManager : Singleton<ScoreManager>
         GameManager.onCardsMatched += IncreaseScore;
         GameManager.onCardsMatched += IncreaseCombo;
         GameManager.onCardsMismatched += ResetCombo;
+        GameManager.onGameStart += StartGame;
         GameManager.onGameSaved += SaveGame;
         GameManager.onGameLoaded += LoadGame;
     }
@@ -26,8 +27,15 @@ public class ScoreManager : Singleton<ScoreManager>
         GameManager.onCardsMatched -= IncreaseScore;
         GameManager.onCardsMatched -= IncreaseCombo;
         GameManager.onCardsMismatched -= ResetCombo;
+        GameManager.onGameStart -= StartGame;
         GameManager.onGameSaved -= SaveGame;
         GameManager.onGameLoaded -= LoadGame;
+    }
+
+    private void StartGame(uint seed)
+    {
+        ResetScore();
+        ResetCombo();
     }
 
     private void SaveGame()

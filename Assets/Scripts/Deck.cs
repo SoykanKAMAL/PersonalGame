@@ -86,8 +86,6 @@ public class Deck : Singleton<Deck>
         }
 
         FlipCardsWithIds(GameManager.Instance.matchedCardIds);
-
-        Debug.Log("Deck created");
     }
 
     public void Reset()
