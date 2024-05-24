@@ -70,7 +70,7 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(delayBeforeFlipBack);
 
-        card1.Flip();
-        card2.Flip();
+        card1.FlipBack();
+        card2.FlipBack();
     }
 }
