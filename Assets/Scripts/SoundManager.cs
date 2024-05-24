@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -9,7 +10,8 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip cardMismatchSound;
     public AudioClip gameOverSound;
 
-    private AudioSource audioSource => GetComponent<AudioSource>();
+    public AudioSource sfxAudioSource;
+    public AudioSource musicAudioSource;
 
     private void OnEnable()
     {
@@ -29,28 +31,28 @@ public class SoundManager : Singleton<SoundManager>
 
     private void PlayFlipSound()
     {
-        PlaySound(cardFlipSound);
+        PlaySfxSound(cardFlipSound);
     }
 
     private void PlayMatchSound()
     {
-        PlaySound(cardMatchSound);
+        PlaySfxSound(cardMatchSound);
     }
 
     private void PlayMismatchSound()
     {
-        PlaySound(cardMismatchSound);
+        PlaySfxSound(cardMismatchSound);
     }
 
     private void PlayGameOverSound()
     {
-        PlaySound(gameOverSound);
+        PlaySfxSound(gameOverSound);
     }
 
-    private void PlaySound(AudioClip clip)
+    private void PlaySfxSound(AudioClip clip)
     {
         // Randomize pitch to make the sound less repetitive
-        audioSource.pitch = Random.Range(0.95f, 1.05f);
-        audioSource.PlayOneShot(clip);
+        sfxAudioSource.pitch = Random.Range(0.95f, 1.05f);
+        sfxAudioSource.PlayOneShot(clip);
     }
 }

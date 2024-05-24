@@ -50,7 +50,7 @@ public class GameManager : Singleton<GameManager>
         onGameLoaded?.Invoke();
     }
 
-    private void SaveGame()
+    public void SaveGame()
     {
         PlayerPrefs.SetString("Seed", seed.ToString());
         // Convert matchedCardIds to string to save in PlayerPrefs
@@ -64,9 +64,11 @@ public class GameManager : Singleton<GameManager>
             }
         }
         PlayerPrefs.SetString("MatchedCardIds", matchedCardIdsString);
+
+        onGameSaved?.Invoke();
     }
 
-    private void LoadGame()
+    public void LoadGame()
     {
         seed = uint.Parse(PlayerPrefs.GetString("Seed"));
         // Convert matchedCardIds from string to List<uint>
@@ -77,11 +79,17 @@ public class GameManager : Singleton<GameManager>
         {
             matchedCardIds.Add(uint.Parse(matchedCardIdsArray[i]));
         }
+        
+        onGameLoaded?.Invoke();
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }  
 
     private void StartGame()
     {
-        onGameLoaded?.Invoke();
         onGameStart?.Invoke(seed);
     }
 
